@@ -1395,7 +1395,23 @@ class LineChartPainter extends AxisChartPainter<LineChartData>
       }
     }
 
-    return LineTouchResponse(touchedSpots, touchInput);
+    print(touchInput);
+
+    Offset localPosition = touchInput.getOffset();
+    Offset positionInCanvas =
+        localPosition.translate(-this.getLeftOffsetDrawSize(), -this.getTopOffsetDrawSize());
+    Size chartSize = this.getChartUsableDrawSize(size);
+
+    Offset normalizedPosition = null;
+    if (positionInCanvas.dx >= 0 &&
+        positionInCanvas.dy >= 0 &&
+        positionInCanvas.dx < chartSize.width &&
+        positionInCanvas.dy < chartSize.height) {
+      normalizedPosition =
+          Offset(positionInCanvas.dx / chartSize.width, positionInCanvas.dy / chartSize.height);
+    }
+
+    return LineTouchResponse(touchedSpots, touchInput, positionInChart: normalizedPosition);
   }
 
   /// find the nearest spot base on the touched offset

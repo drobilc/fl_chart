@@ -1672,19 +1672,23 @@ class LineTouchResponse extends BaseTouchResponse with EquatableMixin {
   /// (if a single line provided on the chart, [lineBarSpots]'s length will be 1 always)
   final List<LineBarSpot> lineBarSpots;
 
+  /// Position of touch event inside the chart usable drawing area. Offset(0, 0)
+  /// represents the top left point of the chart and Offset(1, 1) represents the
+  /// bottom right one.
+  final Offset positionInChart;
+
   /// If touch happens, [LineChart] processes it internally and
   /// passes out a list of [lineBarSpots] it gives you information about the touched spot.
   /// [touchInput] is the type of happened touch.
-  LineTouchResponse(
-    this.lineBarSpots,
-    FlTouchInput touchInput,
-  ) : super(touchInput);
+  LineTouchResponse(this.lineBarSpots, FlTouchInput touchInput, {this.positionInChart})
+      : super(touchInput);
 
   /// Used for equality check, see [EquatableMixin].
   @override
   List<Object> get props => [
         lineBarSpots,
         touchInput,
+        positionInChart,
       ];
 }
 
