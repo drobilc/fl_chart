@@ -1395,8 +1395,6 @@ class LineChartPainter extends AxisChartPainter<LineChartData>
       }
     }
 
-    print(touchInput);
-
     Offset localPosition = touchInput.getOffset();
     Offset positionInCanvas =
         localPosition.translate(-this.getLeftOffsetDrawSize(), -this.getTopOffsetDrawSize());
